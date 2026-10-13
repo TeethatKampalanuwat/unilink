@@ -1,0 +1,6 @@
+uploads/*
+!uploads/.htaccess
+!uploads/.gitkeep
+.vscode/
+.DS_Store
+Thumbs.db
