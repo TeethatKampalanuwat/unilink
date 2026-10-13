@@ -33,7 +33,7 @@ Extension ที่แนะนำใน VS Code: **PHP Intelephense**, **PHP Se
 ## 4. เปิดเว็บ
 
 👉 http://localhost/unilink
-http://192.168.1.45/unilink
+
 
 | บทบาท | เข้าที่ | Username | Password |
 |---|---|---|---|
