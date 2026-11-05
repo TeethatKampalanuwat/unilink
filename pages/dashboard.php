@@ -39,7 +39,7 @@ page_start('Dashboard', 'dashboard');
       <tr>
         <td><b><?= e($a['title']) ?></b><br><span class="muted small"><?= e($a['category']) ?> · ปิดรับ <?= e(fmt_date($a['regis_date'])) ?></span></td>
         <td><?= $closed ? '<span class="badge badge-red">Closed</span>' : '<span class="badge badge-green">Open</span>' ?></td>
-        <td><b class="pink"><?= (int)$a['total'] ?></b> Person<?= $a['pending'] ? ' <span class="badge badge-yellow">' . (int)$a['pending'] . ' รอ</span>' : '' ?></td>
+        <td><span><b class="pink"><?= (int)$a['total'] ?></b> Person<?= $a['pending'] ? ' <span class="badge badge-yellow">' . (int)$a['pending'] . ' รอ</span>' : '' ?></span></td>
         <td class="actions">
           <a class="btn btn-primary btn-sm" href="view_applicants.php?act_id=<?= (int)$a['act_id'] ?>">View Applicants</a>
           <form method="post" action="activity_action.php" class="inline">
@@ -74,7 +74,7 @@ page_start('Dashboard', 'dashboard');
         <td><b><?= e($ap['title']) ?></b><br><span class="muted small">สมัครเมื่อ <?= e(date('Y-m-d H:i', strtotime($ap['created_at']))) ?></span></td>
         <td><?= e($ap['organizer']) ?></td>
         <td><?= e($ap['role']) ?></td>
-        <td>
+        <td><div>
           <?= app_badge($ap['status']) ?>
           <?php if ($ap['status'] === 'rejected'): ?>
             <button type="button" class="btn btn-light btn-xs" data-toggle="#why<?= (int)$ap['id'] ?>">Why?</button>
@@ -82,7 +82,7 @@ page_start('Dashboard', 'dashboard');
           <?php elseif ($ap['status'] === 'approved' && $ap['contact']): ?>
             <div class="muted small">ติดต่อผู้จัด: <?= e($ap['contact']) ?></div>
           <?php endif; ?>
-        </td>
+        </div></td>
       </tr>
     <?php endforeach; ?>
     </tbody>

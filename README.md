@@ -1,136 +1,174 @@
-# UniLink — Chula Activity Hub
+<div align="center">
 
-แพลตฟอร์มรวมกิจกรรม / งาน / โปรเจกต์ / การแข่งขันภายในจุฬาฯ เชื่อม **Applicant** กับ **Recruiter**
-สร้างด้วย **PHP 8 + MySQL (MariaDB)** — รันบนเครื่องตัวเองด้วย XAMPP ได้เลย ไม่ต้องใช้ server ของคณะ
+# 🎓 UniLink
+
+**A campus opportunity hub for Chulalongkorn University students**
+
+Students discover camps, competitions, jobs, tutoring, freelance work and clubs in one place,
+apply in a few clicks, and track every application. Organizers post an opportunity and review applicants
+from a single dashboard.
+
+![PHP](https://img.shields.io/badge/PHP-8-777BB4?logo=php&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-MariaDB-4479A1?logo=mysql&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-vanilla-F7DF1E?logo=javascript&logoColor=black)
+![Responsive](https://img.shields.io/badge/UI-responsive-E91E8C)
+
+![UniLink on desktop and mobile](docs/screenshots/hero.png)
+
+</div>
 
 ---
 
-## 1. ติดตั้งโปรแกรม (ทำครั้งเดียว)
+## The problem
 
-| โปรแกรม | ใช้ทำอะไร | ดาวน์โหลด |
+Opportunities at Chula are scattered across Facebook groups, LINE chats, Instagram stories and faculty notice boards.
+Students miss deadlines because they never see a post. Organizers then collect applications in Google Forms and sort them by hand in spreadsheets.
+
+UniLink puts both sides on one platform:
+
+| Who | Before | With UniLink |
 |---|---|---|
-| **XAMPP** | มี Apache (web server) + MySQL + PHP + phpMyAdmin ในตัว | https://www.apachefriends.org |
-| **VS Code** | เขียน/แก้โค้ด | https://code.visualstudio.com |
-| **Git** (แนะนำมาก) | เก็บโค้ดขึ้น GitHub จะได้ไม่หายอีก | https://git-scm.com |
+| **Students (Applicants)** | Follow dozens of pages and still miss things | One feed with search and filters, one-click apply, and live application status |
+| **Organizers (Recruiters)** | Google Form → spreadsheet → manual replies | Post once, add screening questions, accept or decline with a reason |
+| **Admins** | No overview | Real-time stats, user and activity moderation |
 
-Extension ที่แนะนำใน VS Code: **PHP Intelephense**, **PHP Server** (ไม่บังคับ), **MySQL** (by Weijan Chen) สำหรับดูตารางใน VS Code
-
-## 2. วางโปรเจกต์
-
-1. แตกไฟล์ `unilink.zip` แล้ววางโฟลเดอร์ `unilink` ไว้ที่
-   - Windows: `C:\xampp\htdocs\unilink`
-   - macOS: `/Applications/XAMPP/htdocs/unilink`
-2. เปิด VS Code → **File > Open Folder…** → เลือกโฟลเดอร์ `unilink`
-
-## 3. สร้างฐานข้อมูล
-
-1. เปิด **XAMPP Control Panel** → กด **Start** ที่ `Apache` และ `MySQL`
-2. เปิด http://localhost/unilink/install.php → ระบบสร้าง database `unilink` + 3 ตาราง + ข้อมูลตัวอย่างให้อัตโนมัติ
-   (อยากล้างข้อมูลกลับเป็นค่าเริ่มต้น: http://localhost/unilink/install.php?reset=1)
-   หรือจะ import เองก็ได้: http://localhost/phpmyadmin → แท็บ **Import** → เลือก `database/unilink.sql`
-3. ถ้า MySQL ของคุณตั้งรหัสผ่าน root ไว้ ให้แก้ใน `config/db_settings.php`
-
-
-### ใช้บน Mac (MAMP)
-XAMPP เลิกทำเวอร์ชัน Mac แล้ว ให้ใช้ **MAMP** (ฟรี) จาก https://www.mamp.info แทน
-1. ติดตั้ง MAMP → เปิดแอป **MAMP** (ตัวฟรี ไม่ใช่ MAMP PRO) → กด **Start**
-2. วางโฟลเดอร์ `unilink` ไว้ที่ `/Applications/MAMP/htdocs/unilink`
-3. เปิด http://localhost:8888/unilink/install.php แล้วเข้า http://localhost:8888/unilink
-   (ระบบใช้รหัส MySQL ของ MAMP ให้อัตโนมัติ: root / root, port 8889)
-
-## 4. เปิดเว็บ
-
-👉 http://localhost/unilink
-
-
-| บทบาท | เข้าที่ | Username | Password |
-|---|---|---|---|
-| Admin | `/pages/admin_login.php` | `admin_01` | `admin1234` |
-| User (Recruiter + Applicant) | `/pages/login.php` | `somchai@student.chula.ac.th` | `password123` |
-| User อื่น ๆ | | `somying@…`, `nat@…`, `piti@…`, `chujai@…` (`@student.chula.ac.th`) | `password123` |
-
-> สมัครสมาชิกใหม่ได้เฉพาะอีเมล `@chula.ac.th` หรือ `@student.chula.ac.th`
-> ถ้าอีเมลเป็นรหัสนิสิต 10 หลัก ระบบจะใช้รหัสนั้นเป็น `user_id` ให้เลย
+> Built as a group project for the ComIT course, Faculty of Engineering, Chulalongkorn University.
+> The design follows our project report, which covered stakeholder analysis, customer journey maps, a service blueprint, use cases, DFDs and an ER diagram.
 
 ---
 
-## 5. โครงสร้างไฟล์
+## Features
+
+### For students
+- **Discover** – feed of 6 categories (Camp · Competition · Recruitment · Tutor · Freelance · Club)
+- **Search & filter** – keyword search with suggestions, plus filters for category, free/paid, month and organizer, and an option to show only activities still open
+- **Apply** – one form that is pre-filled from the student's profile and includes the organizer's screening questions
+- **Track** – see each application as Pending, Approved or Rejected. Rejected applications show the reason; approved ones show the organizer's contact
+- **Profile** – photo, faculty, skills tags, bio and contact channels. Recruiters see these, together with a portfolio of activities the student was accepted into
+
+### For organizers
+- **Post an activity** – guided 5-step form with a **live card preview**, custom cover image, theme colour and screening questions
+- **Review applicants** – applicants grouped into Pending, Approved and Rejected, with full profile and answers. Accept, or decline with a written reason
+- **Manage** – open/close registration (closes automatically after the deadline), edit, delete
+
+### For admins
+- **Real-time dashboard** – user, activity and application counts, most-applied categories, and the latest posts
+- **Moderation** – search, edit, change role, suspend (`guest`) or delete users, and edit or remove any activity
+
+---
+
+## Screenshots
+
+| Discover & filter | Activity details |
+|---|---|
+| ![Home feed](docs/screenshots/home.png) | ![Activity detail modal](docs/screenshots/activity-detail.png) |
+| **Post an activity (live preview)** | **Personal dashboard** |
+| ![Create activity](docs/screenshots/create-activity.png) | ![Dashboard](docs/screenshots/dashboard.png) |
+| **Review applicants** | **Admin dashboard** |
+| ![Review applicants](docs/screenshots/review-applicants.png) | ![Admin dashboard](docs/screenshots/admin-dashboard.png) |
+| **Sign up (Chula email only)** | **Admin – manage activities** |
+| ![Register](docs/screenshots/register.png) | ![Admin activities](docs/screenshots/admin-activities.png) |
+
+**Mobile:** the sidebar becomes a bottom tab bar, and tables become cards.
+
+![Mobile screens](docs/screenshots/mobile-showcase.png)
+
+---
+
+## Design decisions driven by user testing
+
+We ran usability tests on the first prototype, rated on a 1–5 scale. The two lowest-scoring tasks drove this version:
+
+| Task (score) | What users struggled with | What changed |
+|---|---|---|
+| **Create activity (2.2 / 5)** | One long form; unclear which fields were required; no idea how the post would look | Split into **5 numbered steps**, marked required fields `*`, added a **live preview** of the final card, and let users press Enter to add screening questions |
+| **Search & filter (3.1 / 5)** | Hard to know whether a filter was applied or how many results matched | Added **autocomplete**, a **result count with a one-click reset**, an "open only" filter, and an active-filter counter on the button |
+| **Mobile use** (listed as a limitation) | Desktop-only layout | Fully **responsive**: a bottom navigation bar, and tables that turn into stacked cards |
+
+---
+
+## Tech stack & architecture
+
+| Layer | Choice | Why |
+|---|---|---|
+| Backend | **PHP 8** (no framework), PDO | Runs on any shared host or XAMPP/MAMP with zero build step |
+| Database | **MySQL / MariaDB** (InnoDB, utf8mb4) | Relational data with foreign keys; Thai text support |
+| Frontend | Server-rendered HTML, **vanilla JS**, hand-written CSS | Fast and dependency-free; one stylesheet with design tokens |
 
 ```
 unilink/
-├── index.php                  → redirect ไป pages/home.php
-├── install.php                → ติดตั้ง/รีเซ็ตฐานข้อมูลในคลิกเดียว (ใช้ได้จาก localhost เท่านั้น)
-├── config/db_settings.php     → host / user / password ของ MySQL
-├── config/db.php              → เชื่อมต่อ MySQL (PDO)
-├── database/unilink.sql       → schema + seed data
-├── includes/
-│   ├── functions.php          → session, login check, CSRF, upload, helper
-│   └── layout.php             → sidebar + topbar ที่ใช้ทุกหน้า
-├── assets/css/style.css       → ธีมชมพู #E91E8C, responsive มือถือ
-├── assets/js/app.js           → modal, filter, คำถามคัดกรอง, live preview
-├── uploads/                   → รูปกิจกรรม / รูปโปรไฟล์ (มี .htaccess กันรันไฟล์ php)
-└── pages/
-    ├── home.php               → หน้าแรก: hero, หมวดหมู่, search + filter, การ์ด, modal รายละเอียด
-    ├── login.php              → ?mode=login / ?mode=register
-    ├── logout.php
-    ├── profile.php            → แก้โปรไฟล์ตัวเอง / ?id= ดูโปรไฟล์+portfolio ของคนอื่น
-    ├── create.php             → สร้างกิจกรรม / ?id= แก้ไขโพสต์ของตัวเอง
-    ├── apply.php?id=          → ฟอร์มสมัคร + ตอบคำถามคัดกรอง
-    ├── dashboard.php          → Managed Activities (Recruiter) + Applied Activities (Applicant)
-    ├── view_applicants.php?act_id= → Pending / Approved / Rejected + accept / decline พร้อมเหตุผล
-    ├── update_application.php → (POST) approve / reject
-    ├── activity_action.php    → (POST) เปิด-ปิดรับสมัคร / ลบโพสต์
-    ├── admin_login.php
-    ├── admin_dashboard.php    → สถิติรวม, ประเภทงานยอดนิยม, กิจกรรมล่าสุด
-    ├── admin_manage_user.php  → รายชื่อผู้ใช้ + ค้นหา
-    ├── admin_edit_user.php?id= → แก้ไข / เปลี่ยน role / reset password / ลบ user
-    ├── admin_manage_activity.php → รายการกิจกรรมทั้งหมด + ลบ
-    └── admin_edit_activity.php?id= → แก้ไขกิจกรรมใดก็ได้ (ใช้ฟอร์มเดียวกับ create.php)
+├── pages/          # one file per screen (home, apply, dashboard, admin_* …)
+├── includes/       # auth, CSRF, uploads, helpers, shared layout
+├── config/         # DB connection (auto-detects XAMPP on Windows / MAMP on macOS)
+├── assets/         # style.css, app.js
+├── database/       # schema + seed data
+└── install.php     # one-click DB installer (localhost only)
 ```
 
-## 6. ฐานข้อมูล (ตาม ER Diagram ใน report)
+### Data model
 
-- **users** (`user_id` PK) — ข้อมูลส่วนตัว, role `admin | user | guest`, skills
-- **activity** (`act_id` PK, `user_id` FK) — โพสต์กิจกรรม, `questions` เก็บเป็น JSON array
-- **application** (`id` PK, `user_id` FK, `activity_id` FK) — ใบสมัคร, `answers` เป็น JSON, status `pending | approved | rejected`, `reject_reason`
+```mermaid
+erDiagram
+    USERS ||--o{ ACTIVITY : creates
+    USERS ||--o{ APPLICATION : submits
+    ACTIVITY ||--o{ APPLICATION : receives
+    USERS {
+        varchar user_id PK "student ID"
+        varchar email UK "@chula.ac.th only"
+        varchar password "bcrypt hash"
+        enum role "admin | user | guest"
+        text skills
+    }
+    ACTIVITY {
+        int act_id PK
+        varchar user_id FK
+        varchar category
+        date regis_date "auto-closes after"
+        date act_date
+        text questions "JSON screening questions"
+        varchar status "open | closed"
+    }
+    APPLICATION {
+        int id PK
+        varchar user_id FK
+        int activity_id FK
+        text answers "JSON"
+        enum status "pending | approved | rejected"
+        text reject_reason
+    }
+```
 
-ความสัมพันธ์: User 1—N Activity (Creates), User 1—N Application (Submits), Activity 1—N Application (Receives)
+`UNIQUE(user_id, activity_id)` prevents duplicate applications, and `ON DELETE CASCADE` keeps data consistent when a user or post is removed.
 
-### สิ่งที่ปรับจาก report
-- `regis_date`, `act_date` เปลี่ยนจาก VARCHAR เป็น **DATE** → filter ตามเดือนได้ และปิดรับสมัครอัตโนมัติเมื่อเลยวัน
-- เพิ่ม **UNIQUE (user_id, activity_id)** กันสมัครกิจกรรมเดียวกันซ้ำ
-- ลบ user / กิจกรรม → ใบสมัครที่เกี่ยวข้องถูกลบตาม (ON DELETE CASCADE)
-- role `guest` ใช้เป็น "ระงับบัญชี" (login ไม่ได้)
-
-### ปรับตามผล Usability Test
-- **Create Activity (คะแนน 2.2)** → แบ่งฟอร์มเป็น 5 ขั้น, มีเครื่องหมาย * ช่องบังคับ, **ตัวอย่างการ์ดแบบ live**, กด Enter เพิ่มคำถามได้
-- **Search & Filter (3.1)** → แนะนำชื่อกิจกรรมขณะพิมพ์, แสดงจำนวนผลลัพธ์ + ปุ่มล้าง, filter "เฉพาะที่ยังเปิดรับ", ปุ่ม Filter บอกจำนวนเงื่อนไขที่เลือก
-- **Limitation: มือถือใช้ยาก** → responsive, sidebar กลายเป็นเมนูด้านล่างบนจอเล็ก
-
-## 7. ความปลอดภัยที่มีให้แล้ว
-รหัสผ่าน hash ด้วย `password_hash` (bcrypt) · ทุก query ใช้ prepared statement (กัน SQL injection) · escape output ด้วย `e()` (กัน XSS) · CSRF token ทุกฟอร์ม · ตรวจไฟล์อัปโหลดว่าเป็นรูปจริง ≤ 5MB · เช็คสิทธิ์เจ้าของโพสต์ก่อนแก้/ลบ/ดูผู้สมัคร
+### Security
+- Passwords hashed with `password_hash` (bcrypt)
+- Every query uses **prepared statements** to prevent SQL injection
+- All output escaped to prevent XSS, and a **CSRF token** on every form
+- Ownership checks on every edit, delete and applicant-review action, and a separate admin role
+- Uploads validated as real images (≤ 5 MB) and stored in a folder where PHP execution is blocked
+- Session ID regenerated on login, and redirects restricted to internal paths
 
 ---
 
-## 8. กันโค้ดหายอีก — เอาขึ้น GitHub
+## Run it locally
 
-```bash
-cd C:\xampp\htdocs\unilink
-git init
-git add .
-git commit -m "UniLink first version"
-git branch -M main
-# สร้าง repo ใหม่บน github.com แล้ว:
-git remote add origin https://github.com/<username>/unilink.git
-git push -u origin main
-```
-แชร์ repo ให้เพื่อนในกลุ่ม แล้วทุกคน `git pull` / `git push` ได้
+**Windows – XAMPP**
+1. Install [XAMPP](https://www.apachefriends.org), then start **Apache** and **MySQL**
+2. Clone into `C:\xampp\htdocs\unilink`
+3. Open <http://localhost/unilink/install.php>, then go to <http://localhost/unilink>
 
-## 9. ปัญหาที่พบบ่อย
-| อาการ | วิธีแก้ |
-|---|---|
-| "เชื่อมต่อฐานข้อมูลไม่ได้" | ยังไม่ Start MySQL หรือยังไม่ import SQL / แก้รหัสผ่านใน `config/db_settings.php` |
-| MySQL Start ไม่ขึ้น (port 3306 ชน) | ปิดโปรแกรม MySQL ตัวอื่น หรือเปลี่ยน port ใน XAMPP แล้วแก้ `$DB_PORT` |
-| Apache Start ไม่ขึ้น (port 80 ชน) | ปิด Skype/IIS หรือเปลี่ยน port เป็น 8080 แล้วเข้า `localhost:8080/unilink` |
-| อัปโหลดรูปไม่ได้ | เช็คว่าโฟลเดอร์ `uploads/` มีอยู่และเขียนได้ |
-| ภาษาไทยเป็น ??? | ต้อง import ผ่านไฟล์ `.sql` นี้ (ตั้ง utf8mb4 ไว้แล้ว) |
+**macOS – MAMP**
+1. Install [MAMP](https://www.mamp.info), then press **Start**
+2. Clone into `/Applications/MAMP/htdocs/unilink`
+3. Open <http://localhost:8888/unilink/install.php>, then go to <http://localhost:8888/unilink>
+
+Database credentials are detected automatically (XAMPP `root` / no password, MAMP `root` / `root`). Edit `config/db_settings.php` if yours differ.
+
+**Demo accounts** (fictional seed data)
+
+| Role | Login | Password |
+|---|---|---|
+| Student / Organizer | `somchai@student.chula.ac.th` | `password123` |
+| Admin | `admin_01` (at `/pages/admin_login.php`) | `admin1234` |
+
+Reset to the demo data at any time: `install.php?reset=1`.

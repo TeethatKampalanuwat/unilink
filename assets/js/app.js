@@ -18,6 +18,14 @@
     if (fp && !fp.hidden && !ev.target.closest('.filter-wrap')) fp.hidden = true;
   });
 
+  // ใส่ data-label ให้ทุกช่องในตาราง (ใช้แสดงแบบการ์ดบนมือถือ)
+  $$('.table-wrap table').forEach((t) => {
+    const heads = $$('thead th', t).map((th) => th.textContent.trim());
+    $$('tbody tr', t).forEach((tr) => [...tr.children].forEach((td, i) => {
+      if (heads[i] && !td.hasAttribute('colspan')) td.dataset.label = heads[i];
+    }));
+  });
+
   // แสดง/ซ่อนรหัสผ่าน
   $$('.pw-toggle').forEach((b) => b.addEventListener('click', () => {
     const inp = b.previousElementSibling;

@@ -265,7 +265,20 @@ body.is-admin .sidebar .menu a.active { background: #C2185B; }
   .content { padding: 16px; }
   .topbar { padding: 10px 16px; flex-wrap: wrap; }
   .topbar .btn-primary.pill { display: none; }
-  .search { max-width: none; }
+  .search { max-width: none; flex: 1; min-width: 0; }
+  .topbar-spacer { display: none; }
+  /* ตารางกลายเป็นการ์ดบนมือถือ (label มาจากหัวตาราง ผ่าน app.js) */
+  .table-wrap table, .table-wrap tbody, .table-wrap tr, .table-wrap td { display: block; width: 100%; }
+  .table-wrap thead { display: none; }
+  .table-wrap tr { border: 1px solid var(--line); border-radius: 12px; padding: 6px 12px; margin-bottom: 10px; }
+  .table-wrap td { border: 0; padding: 6px 0; display: flex; gap: 12px; justify-content: space-between; align-items: center; text-align: right; }
+  .table-wrap td::before { content: attr(data-label); font-size: .72rem; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; text-align: left; flex-shrink: 0; }
+  .table-wrap td:first-child { display: block; text-align: left; font-size: .95rem; }
+  .table-wrap td:first-child::before { display: none; }
+  .table-wrap td.actions { justify-content: flex-end; flex-wrap: wrap; }
+  .table-wrap td.actions::before { flex-basis: 100%; }
+  .table-wrap td.empty { display: block; text-align: center; }
+  .table-wrap td.empty::before { display: none; }
   .grid-2, .info-grid, .auth { grid-template-columns: 1fr; }
   .auth-side { min-height: 180px; }
   .card-grid { grid-template-columns: 1fr; }
