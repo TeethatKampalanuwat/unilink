@@ -30,6 +30,14 @@ Extension ที่แนะนำใน VS Code: **PHP Intelephense**, **PHP Se
    หรือจะ import เองก็ได้: http://localhost/phpmyadmin → แท็บ **Import** → เลือก `database/unilink.sql`
 3. ถ้า MySQL ของคุณตั้งรหัสผ่าน root ไว้ ให้แก้ใน `config/db_settings.php`
 
+
+### ใช้บน Mac (MAMP)
+XAMPP เลิกทำเวอร์ชัน Mac แล้ว ให้ใช้ **MAMP** (ฟรี) จาก https://www.mamp.info แทน
+1. ติดตั้ง MAMP → เปิดแอป **MAMP** (ตัวฟรี ไม่ใช่ MAMP PRO) → กด **Start**
+2. วางโฟลเดอร์ `unilink` ไว้ที่ `/Applications/MAMP/htdocs/unilink`
+3. เปิด http://localhost:8888/unilink/install.php แล้วเข้า http://localhost:8888/unilink
+   (ระบบใช้รหัส MySQL ของ MAMP ให้อัตโนมัติ: root / root, port 8889)
+
 ## 4. เปิดเว็บ
 
 👉 http://localhost/unilink
